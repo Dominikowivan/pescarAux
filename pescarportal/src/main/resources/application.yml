@@ -1,0 +1,50 @@
+server:
+  port: 8080
+debug: false
+spring:
+  datasource:
+    url: jdbc:h2:mem:testdb
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+  h2:
+    console:
+      enabled: true
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: update
+  profiles:
+    active:
+      - local
+  mail:
+    username: ForceForGoodPescar@gmail.com
+    password: P35c4r!JPM
+    port: 587
+    host: smtp.gmail.com
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+    protocol: smtp
+    test-connection: true
+
+jwt.header: Authorization
+jwt.secret: mySecret
+# 7 Days till expiration discuss this with the team to an acceptable value
+jwt.expiration: 604800
+jwt.route.authentication.path: /auth
+jwt.route.authentication.refresh: /refresh
+email.link: "https://localhost:8080/verify/email?id="
+#Complexity rules for password registration
+minimum_uppercase: 1
+minimum_complexity_rules: 2
+minimum_lowercase: 1
+minimum_length: 8
+maximum_length: 128
+#duration time in millis to delete verifications
+# 7 days
+registration_span: 604800000
+ui.link: http://localhost:3000
