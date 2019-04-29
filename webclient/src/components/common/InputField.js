@@ -12,7 +12,7 @@ const InputField = ({
   type,
   disabled,
   helperText,
-  style,
+  className,
   fullWidth,
   required,
   multiline,
@@ -30,7 +30,7 @@ const InputField = ({
       onChange={onChange}
       disabled={disabled}
       helperText={helperText}
-      style={style}
+      className={className}
       fullWidth={fullWidth}
       info={info}
       required={required}

@@ -147,12 +147,6 @@ class SideDrawer extends React.Component {
     this.handleDrawerClose()
     this.props.logoutUser()
   }
-    handleSettingClick = (e) => {
-    e.preventDefault()
-    this.handleClose()
-    this.handleDrawerClose()
-    this.props.settingUser()
-  }
 
   render () {
     const { classes, theme } = this.props

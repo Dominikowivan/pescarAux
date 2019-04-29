@@ -1,8 +1,7 @@
 import { LAYOUT_UPDATE } from '../actions/types'
 
 const initialState = {
-  drawerExpanded: false,
-  deletionPopUp: false
+  drawerExpanded: false
 }
 
 export default (state = initialState, action) => {

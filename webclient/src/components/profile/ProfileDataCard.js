@@ -22,7 +22,6 @@ const styles = {
 
 const ProfileDataCard = (props) => {
   const { userData } = props
-  console.log(userData)
   return (
     <Card style={styles.card}>
       <CardActionArea>
@@ -31,28 +30,28 @@ const ProfileDataCard = (props) => {
           <Typography gutterBottom variant='headline' component='h2'>
             {"Tel: " + userData.profileData.telephone}
           </Typography>
-          <Divider/>
+          <Divider />
           <Typography gutterBottom variant='headline' component='h2'>
-            {"Tel Alternativo: " + userData.profileData.alternativeTelephone}
+            {"Tel alternativo: " + userData.profileData.alternativeTelephone}
           </Typography>
-          <Divider/>
+          <Divider />
           <Typography gutterBottom variant='headline' component='h2'>
             {"Central Pescar: " + userData.profileData.pescarCenter}
           </Typography>
-          <Divider/>
+          <Divider />
           <Typography gutterBottom variant='headline' component='h2'>
-            {"Counselor: " + userData.profileData.counselor}
+            {"Orientador: " + userData.profileData.counselor}
           </Typography>
-          <Divider/>
+          <Divider />
           <Typography gutterBottom variant='headline' component='h2'>
-            {"Estudios Alcanzados: " + userData.profileData.maximumEducation}
+            {"Estudios alcanzados: " + userData.profileData.maximumEducation}
           </Typography>
-          <Divider/>       
+          <Divider />
           <Typography gutterBottom variant='headline' component='h2'>
-            {"Fecha de Recibida: " + userData.profileData.graduationYear}
-          </Typography>            
+            {"Fecha de graduación: " + userData.profileData.graduationYear}
+          </Typography>
         </CardContent>
-      </CardActionArea>      
+      </CardActionArea>
     </Card>
   )
 }

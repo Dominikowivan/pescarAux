@@ -1,7 +1,11 @@
 import React from 'react';
 import axios from 'axios';
+import link from '../../utils/apilink.json';
+import { deleteFromList } from '../../actions/deleteAction'
+import { connect } from 'react-redux'
 
-export default class RemoveConfirm extends React.Component {
+
+export class RemoveConfirm extends React.Component {
   state = {
     id: '',
   }
@@ -12,11 +16,12 @@ export default class RemoveConfirm extends React.Component {
 
   handleSubmit = event => {
     event.preventDefault();
-    console.log("lpm")
-    axios.delete(`/alumni/${this.state.id}`)
+    axios.delete(link.link + `/alumni/${this.state.id}`)
       .then(res => {
         console.log("deletion:",res);
       })
+
+      this.props.deleteFromList(this.state.id)
   }
 
   render() {
@@ -33,4 +38,15 @@ export default class RemoveConfirm extends React.Component {
 
     )
   }
+
+
 }
+
+const mapStateToProps = (state) => ({
+ 
+})
+
+const mapDispatchToProps = {
+ deleteFromList
+}
+export default connect(mapStateToProps, mapDispatchToProps)(RemoveConfirm)

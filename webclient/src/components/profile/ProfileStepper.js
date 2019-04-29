@@ -60,7 +60,7 @@ function getStepContent(stepIndex) {
 }
 
 class ProfileStepper extends Component {
-  constructor(){
+  constructor() {
     super();
     this.state = {
       errors: '',
@@ -68,9 +68,9 @@ class ProfileStepper extends Component {
       tel: '',
       tel_alter: '',
       maximumEducation: '',
-	    pescarCenter: '',
-	    counselor: '',
-	    graduationYear: null
+      pescarCenter: '',
+      counselor: '',
+      graduationYear: null
     };
   }
 
@@ -102,7 +102,7 @@ class ProfileStepper extends Component {
       pescarCenter: this.state.pescarCenter,
       counselor: this.state.counselor,
       graduationYear: this.state.graduationYear
-    }    
+    }
 
     this.props.completeProfile(data, this.props.history)
   }
@@ -110,136 +110,134 @@ class ProfileStepper extends Component {
   render() {
     const { classes } = this.props;
     const steps = getSteps();
-    
+
 
     return (
       <Grid xs="12">
-      <Card className={classes.root}>
-      <CardHeader title="Completar Perfil" />
-      <form>
-        <Stepper activeStep={this.state.activeStep} alternativeLabel>
-          {steps.map(label => (
-            <Step key={label}>
-              <StepLabel>{label}</StepLabel>
-            </Step>
-          ))}
-        </Stepper>
-        <div>
-          {this.state.activeStep === steps.length ? (
+        <Card className={classes.root}>
+          <CardHeader title="Completar Perfil" />
+          <form>
+            <Stepper activeStep={this.state.activeStep} alternativeLabel>
+              {steps.map(label => (
+                <Step key={label}>
+                  <StepLabel>{label}</StepLabel>
+                </Step>
+              ))}
+            </Stepper>
             <div>
-              <Typography className={classes.instructions}>Perfil Completado</Typography>              
+              {this.state.activeStep === steps.length ? (
+                <div>
+                  <Typography className={classes.instructions}>Perfil Completado</Typography>
+                </div>
+              ) : (
+                  <div>
+                    <Typography className={classes.instructions}>{getStepContent(this.state.activeStep)}</Typography>
+
+                    {this.state.activeStep === 0 ? (<CardContent><div>
+                      <TextField
+                        className={classes.textField}
+                        name='tel'
+                        label="Telefono"
+                        placeholder="15-XXXX-XXXX"
+                        type='text'
+                        onChange={this.onChangeHandler}
+                        fullWidth
+                        margin="normal"
+                        value={this.state.name}
+                        variant="outlined"
+                      />
+                    </div>
+                      <div>
+                        <TextField
+                          className={classes.textField}
+                          name='tel_alter'
+                          label="Telefono Alternativo"
+                          placeholder="15-XXXX-XXXX"
+                          type='text'
+                          style={styles.inputField}
+                          onChange={this.onChangeHandler}
+                          fullWidth
+                          margin="normal"
+                          variant="outlined"
+                          value={this.state.surname}
+                        />
+                      </div></CardContent>) : null}
+                    {this.state.activeStep === 1 ? (<CardContent><div>
+                      <TextField
+                        className={classes.textField}
+                        name='pescarCenter'
+                        label="Centro Pescar"
+                        placeholder="Córdoba"
+                        type='text'
+                        onChange={this.onChangeHandler}
+                        fullWidth
+                        margin="normal"
+                        value={this.state.name}
+                        variant="outlined"
+                      />
+                    </div>
+                      <div>
+                        <TextField
+                          className={classes.textField}
+                          name='counselor'
+                          label="Orientador"
+                          placeholder="Berk"
+                          type='text'
+                          style={styles.inputField}
+                          onChange={this.onChangeHandler}
+                          fullWidth
+                          margin="normal"
+                          variant="outlined"
+                          value={this.state.surname}
+                        />
+                      </div></CardContent>) : null}
+                    {this.state.activeStep === 2 ? (<CardContent><div>
+                      <TextField
+                        className={classes.textField}
+                        name='maximumEducation'
+                        label="Nivel Educativo Alcanzado"
+                        placeholder="Secundario"
+                        type='text'
+                        onChange={this.onChangeHandler}
+                        fullWidth
+                        margin="normal"
+                        value={this.state.name}
+                        variant="outlined"
+                      />
+                    </div>
+                      <div>
+                        <TextField
+                          className={classes.textField}
+                          name='graduationYear'
+                          label="Año de Graduación"
+                          placeholder="1990"
+                          type='text'
+                          style={styles.inputField}
+                          onChange={this.onChangeHandler}
+                          fullWidth
+                          margin="normal"
+                          variant="outlined"
+                          value={this.state.surname}
+                        />
+                      </div></CardContent>) : null}
+
+                    <div>
+                      <Button
+                        disabled={this.state.activeStep === 0}
+                        onClick={this.handleBack}
+                        className={classes.backButton}
+                      >Atras
+                      </Button>
+                      {this.state.activeStep === steps.length - 1 ? <Button variant="contained" color="primary" onClick={this.onSubmit}>
+                        Finalizar</Button> : (
+                          <Button variant="contained" color="primary" onClick={this.handleNext}>Siguiente</Button>)}
+                    </div>
+                  </div>
+
+                )}
             </div>
-          ) : (
-            <div>
-            <Typography className={classes.instructions}>{getStepContent(this.state.activeStep)}</Typography>
-              
-              {this.state.activeStep === 0 ? (<CardContent><div>
-              <TextField
-                className={classes.textField}
-                name='tel'
-                label="Telefono"  
-                placeholder="15-XXXX-XXXX"                           
-                type='text'                             
-                onChange={this.onChangeHandler}                
-                fullWidth
-                margin="normal"
-                value={this.state.name}   
-                variant="outlined"             
-              />
-              </div>
-              <div>
-              <TextField
-                className={classes.textField}
-                name='tel_alter'
-                label="Telefono Alternativo"   
-                placeholder="15-XXXX-XXXX"                           
-                type='text'
-                style={styles.inputField}
-                onChange={this.onChangeHandler}                
-                fullWidth
-                margin="normal"
-                variant="outlined"
-                value={this.state.surname}
-              />
-              </div></CardContent>) : null}
-              {this.state.activeStep === 1 ? (<CardContent><div>
-              <TextField
-                className={classes.textField}
-                name='pescarCenter'
-                label="Centro Pescar" 
-                placeholder="Córdoba"                            
-                type='text'                             
-                onChange={this.onChangeHandler}                
-                fullWidth
-                margin="normal"
-                value={this.state.name}   
-                variant="outlined"             
-              />
-              </div>
-              <div>
-              <TextField
-                className={classes.textField}
-                name='counselor'
-                label="Counselor" 
-                placeholder="Berk"                                
-                type='text'
-                style={styles.inputField}
-                onChange={this.onChangeHandler}                
-                fullWidth
-                margin="normal"
-                variant="outlined"
-                value={this.state.surname}
-              />
-              </div></CardContent>) : null}
-              {this.state.activeStep === 2 ? (<CardContent><div>
-              <TextField
-                className={classes.textField}
-                name='maximumEducation'
-                label="Nivel Educativo Alcanzado"
-                placeholder="Secundario"                             
-                type='text'                             
-                onChange={this.onChangeHandler}                
-                fullWidth
-                margin="normal"
-                value={this.state.name}   
-                variant="outlined"             
-              />
-              </div>
-              <div>
-              <TextField
-                className={classes.textField}
-                name='graduationYear'
-                label="Año de Graduación"
-                placeholder="1990"                               
-                type='text'
-                style={styles.inputField}
-                onChange={this.onChangeHandler}                
-                fullWidth
-                margin="normal"
-                variant="outlined"
-                value={this.state.surname}
-              />
-              </div></CardContent>) : null}
-              
-              <div>
-                <Button
-                  disabled={this.state.activeStep === 0}
-                  onClick={this.handleBack}
-                  className={classes.backButton}
-                >                  Back
-                </Button>
-                
-                  {this.state.activeStep === steps.length - 1  ? <Button variant="contained" color="primary" onClick={this.onSubmit}> 
-                    Finish</Button>: (
-                    <Button variant="contained" color="primary" onClick={this.handleNext}>Next</Button>)}
-                
-              </div>            
-          </div>
-          
-          )}
-        </div>
-        </form>        
-      </Card>
+          </form>
+        </Card>
       </Grid>
     );
   }
@@ -249,7 +247,7 @@ ProfileStepper.propTypes = {
   classes: PropTypes.object,
 };
 
-const mapStateToProps = (state) => ({  
+const mapStateToProps = (state) => ({
   errors: state.errors
 })
 

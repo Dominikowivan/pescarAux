@@ -1,1 +1,0 @@
-<ProfileDataCard userData={ !this.props.profileData ? this.props.profileData() : this.props.profileData}/>}

@@ -9,7 +9,10 @@ const theme = createMuiTheme({
       main: '#f44336'
     },
     error: red
-  }
+  },
+  typography: {
+    useNextVariants: true,
+  },
 })
 
 export default theme

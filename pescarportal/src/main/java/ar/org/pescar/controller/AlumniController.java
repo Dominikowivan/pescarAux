@@ -6,8 +6,6 @@ import ar.org.pescar.security.repositories.UserDAO;
 import ar.org.pescar.security.service.JwtTokenUtil;
 import ar.org.pescar.services.AlumniProfileService;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
-import com.fasterxml.jackson.datatype.hibernate5.Hibernate5Module;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 public class AlumniController {
 
@@ -49,7 +48,7 @@ public class AlumniController {
      * @return String
      *  No information of the entities is revealed from this query only generalised messages.
      */
-    @PostMapping
+    @PostMapping(value = "/alumni")
     public ResponseEntity<String> createAlumniProfile(HttpServletRequest request) {
         //Get Token and username from said token.
         String token = request.getHeader(tokenHeader).substring(7);
@@ -77,7 +76,7 @@ public class AlumniController {
      * @return AlumniProfile
      *  Partial AlumniProfile entity returned.
      */
-    @GetMapping
+    @GetMapping(value= "/alumni")
     public ResponseEntity<?> findAlumniProfile(HttpServletRequest request){
         //Get Token and username from said token.
         String token = request.getHeader(tokenHeader).substring(7);
@@ -100,7 +99,7 @@ public class AlumniController {
      * @return String
      *  No information of the entities is revealed from this query only generalised messages.
      */
-    @PutMapping
+    @PutMapping( value = "/alumni")
     public ResponseEntity<?> updateAlumniProfile(HttpServletRequest request){
         //Get Token and username from said token.
         String token = request.getHeader(tokenHeader).substring(7);
@@ -126,14 +125,14 @@ public class AlumniController {
         }
     }
 
-  //@PreAuthorize("hasRole('ADMIN')")
+   // @PreAuthorize("hasRole('ADMIN')")
     @GetMapping(value= "/alumni/all")
     public ResponseEntity< List<AlumniProfile> > findAllAlumniProfile() {
         List<AlumniProfile> allAlumniProfile = alumniProfileService.getAllAlumniProfile();
         return new ResponseEntity<>(allAlumniProfile, HttpStatus.OK);
     }
 
-    //@PreAuthorize("hasRole('ADMIN')")
+   // @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/alumni/filter")
     public ResponseEntity<?> getAlumniBy(@RequestBody AlumniProfile profileToFilterBy){
         List<AlumniProfile> results = alumniProfileService.getAllAlumniProfileByExample(profileToFilterBy);
@@ -145,6 +144,5 @@ public class AlumniController {
         alumniProfileService.delete(id);
         return new ResponseEntity<>(String.format("Alumni deleted correctly"),HttpStatus.OK);
     }
-
 
 }

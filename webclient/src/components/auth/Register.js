@@ -4,19 +4,27 @@ import { withRouter } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import { registerUser } from '../../actions/authActions'
 import InputField from '../common/InputField'
+import InputErrorDialog from './InputErrorDialog'
 import Button from '@material-ui/core/Button'
 import Card from '@material-ui/core/Card'
 import CardActions from '@material-ui/core/CardActions'
 import CardHeader from '@material-ui/core/CardHeader'
 import CardContent from '@material-ui/core/CardContent'
 import CircularProgress from '@material-ui/core/CircularProgress';
+import TextField from '@material-ui/core/TextField'
 import { withStyles } from '@material-ui/core/styles';
 import compose from 'recompose/compose'
+import classnames from 'classnames';
 
-const styles ={
+const styles = theme => ({
   inputField: {
+    width: '70%',
+    padding: '5px',
+    margin: '10px'
+  },
+  dateField:{
     width: '80%',
-    padding: '10px',
+    padding: '13px',
     margin: '10px'
   },
   root: {
@@ -35,7 +43,7 @@ const styles ={
     marginTop: -12,
     marginLeft: -12,
   }
-}
+})
 
 export class Register extends Component {
   constructor () {
@@ -47,6 +55,7 @@ export class Register extends Component {
       firstName: '',
       lastName: '',
       dni: '',
+      dateOfBirth:'',
       errors: null,
       loading: false,
       success: false
@@ -84,7 +93,8 @@ export class Register extends Component {
       email: this.state.email,
       firstName: this.state.firstName,
       lastName: this.state.lastName,
-      dni: this.state.dni
+      dni: this.state.dni,
+      dateOfBirth: this.state.dateOfBirth
     }
 
     if (!this.state.loading) {
@@ -111,10 +121,9 @@ export class Register extends Component {
   render () {
     const { errors } = this.state
     const { classes } = this.props;
-
     return (
       <Fragment>
-        <Card style={styles.root}>
+        <Card className={classnames(classes.root)}>
           <CardHeader title='Crea tu cuenta'/>
           <form onSubmit={this.onSubmit} noValidate>
             <CardContent>
@@ -122,7 +131,7 @@ export class Register extends Component {
                 name='firstName'
                 placeholder='Nombre'
                 type='text'
-                style={styles.inputField}
+                className={classnames(classes.inputField)}
                 onChange={this.onChangeHandler}
                 helperText={errors ? 'Hay un error' : ''}
                 error={errors}
@@ -133,7 +142,7 @@ export class Register extends Component {
                 name='lastName'
                 placeholder='Apellido'
                 type='text'
-                style={styles.inputField}
+                className={classnames(classes.inputField)}             
                 onChange={this.onChangeHandler}
                 helperText={errors ? 'Hay un error' : ''}
                 error={errors}
@@ -144,7 +153,7 @@ export class Register extends Component {
                 name='email'
                 placeholder='Email'
                 type='email'
-                style={styles.inputField}
+                className={classnames(classes.inputField)}
                 onChange={this.onChangeHandler}
                 helperText={errors ? 'Hay un error' : ''}
                 error={errors}
@@ -153,20 +162,34 @@ export class Register extends Component {
               />
               <InputField
                 name='dni'
-                placeholder='Dni'
+                placeholder='DNI'
                 type='text'
-                style={styles.inputField}
+                className={classnames(classes.inputField)}
                 onChange={this.onChangeHandler}
                 helperText={errors ? 'Hay un error' : ''}
                 error={errors}
                 fullWidth
                 value={this.state.dni}
               />
+              <TextField
+                name='dateOfBirth'
+                label="Fecha de nacimiento"
+                style={styles.dateField}
+                type="date"
+                error={errors}
+                onChange={this.onChangeHandler}
+                className={classes.textField}
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                fullWidth
+                value={this.state.dateOfBirth}
+              />
               <InputField
                 name='username'
                 placeholder='Usuario'
                 type='text'
-                style={styles.inputField}
+                className={classnames(classes.inputField)}
                 onChange={this.onChangeHandler}
                 helperText={errors ? 'Hay un error' : ''}
                 error={errors}
@@ -177,7 +200,7 @@ export class Register extends Component {
                 name='password'
                 placeholder='Contraseña'
                 type='password'
-                style={styles.inputField}
+                className={classnames(classes.inputField)}
                 onChange={this.onChangeHandler}
                 helperText={errors ? 'Hay un error' : ''}
                 error={errors}
@@ -187,14 +210,26 @@ export class Register extends Component {
             </CardContent>
             <CardActions>
               <div className={classes.wrapper}>
+              {!this.state.loading &&
                 <Button color='secondary' type='submit'>
                   CONFIRMAR
-                </Button>
-                {this.state.loading && <CircularProgress size={24} className={classes.buttonProgress} />}
+              </Button> }
+                {this.state.loading && 
+                <Fragment>
+                  <CircularProgress size={24} className={classes.buttonProgress} />
+                  <br /><br />
+                </Fragment>
+                }
               </div>
             </CardActions>
           </form>
         </Card>
+        <InputErrorDialog
+          errorMessage={'Este usuario ya existe o este mail fue usado'}
+          buttonText={'OK'}
+          titleText={'Error de registro'}
+          show={false}
+        />
       </Fragment>
     )
   }
@@ -208,7 +243,8 @@ Register.proptypes = {
 
 const mapStateToProps = (state) => ({
   auth: state.auth,
-  errors: state.errors
+  errors: state.errors,
+  show: state.show
 })
 
 const mapDispatchToProps = {

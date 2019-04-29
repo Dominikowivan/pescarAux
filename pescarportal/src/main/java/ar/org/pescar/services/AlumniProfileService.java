@@ -48,7 +48,8 @@ public class AlumniProfileService {
         return alumniProfileDAO.findByUserId(id);
     }
 
-    public void delete(Integer alumniId) {
-        alumniProfileDAO.delete(getById(alumniId));
+    public void delete(Integer id) {
+        AlumniProfile alumniProfile = alumniProfileDAO.getOne(id);
+        alumniProfileDAO.delete(alumniProfile);
     }
 }
