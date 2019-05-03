@@ -296,7 +296,7 @@ class UpdateListConfirm extends React.Component {
   render() {
     const { classes } = this.props;
     const { order, orderBy, selected, rowsPerPage, page } = this.state;
-    const data = this.props.profileData.profileDataList;
+    let data = this.props.profileData.profileDataList;
     const emptyRows = rowsPerPage - Math.min(rowsPerPage, data.length - page * rowsPerPage);
     
 

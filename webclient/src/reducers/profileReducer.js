@@ -6,7 +6,8 @@ import {
 const initialState = {
   isLoading: false,
   profileData: {telephone:""} ,
-  profileDataList : []
+  profileDataList : [],
+  
 }
 
 export default (state = initialState, action) => {
@@ -22,8 +23,13 @@ export default (state = initialState, action) => {
       profileDataList: action.payload.data
     }
     case 'USER_DATA_LIST_DELETE_OK':
+    console.log(state," ////dgfg",action.payload)
     
-    var a = state.profileDataList.filter(student => student.id !== action.payload)
+
+    let a = state.profileDataList.filter(student => student.id !== Number(action.payload))
+    //console.log("Hola no sirvo",a)
+    //console.log("Hola no sirvo",a.filter(student => student.id !== Number(action.payload)))
+    
    
     return {
       ...state,

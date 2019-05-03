@@ -10,7 +10,7 @@ const store = createStore(
   rootReducer,
   initialState,
   composeWithDevTools(
-    applyMiddleware(thunk, logger), 
+    applyMiddleware(thunk, logger)
   ),
 )
 
