@@ -89,7 +89,8 @@ public class AlumniController {
             return new ResponseEntity<>("There's no profile for this user.",HttpStatus.NO_CONTENT);
         }
     }
-
+   
+   
     /**
      * Method to update the Alumni Profile for the current authenticated user,
      *  the ID and User will always be the same for this Alumni Profile entry.
@@ -138,11 +139,27 @@ public class AlumniController {
         List<AlumniProfile> results = alumniProfileService.getAllAlumniProfileByExample(profileToFilterBy);
         return new ResponseEntity<>(results ,HttpStatus.OK);
     }
-
+ // @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping(value="/alumni/{id}")
     public ResponseEntity<?> deleteAlumniProfile(@PathVariable Integer id){
         alumniProfileService.delete(id);
         return new ResponseEntity<>(String.format("Alumni deleted correctly"),HttpStatus.OK);
     }
+ // @PreAuthorize("hasRole('ADMIN')") 
+    @GetMapping(value="/alumni/{id}")
+    public ResponseEntity<?> getAlumniProfile(@PathVariable Integer id){
+    	
+    	AlumniProfile alumniProfile= alumniProfileService.getByUserId(id.longValue());
+    
+    	if(alumniProfile!=null) {
+        return new ResponseEntity<>(alumniProfile,HttpStatus.OK);
+    }
+    	else             
+    		return new ResponseEntity<>("There's no profile for this user.",HttpStatus.NO_CONTENT);
+
+    		
+    }
+ 
+
 
 }

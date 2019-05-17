@@ -5,6 +5,7 @@
 export const LAYOUT_UPDATE = "LAYOUT_UPDATE";
 
 export const GET_ERRORS = 'GET_ERRORS'
+export const SHOW_DATA_EDIT = 'SHOW_DATA_EDIT';
 
 export const Auth = {
   SET_CURRENT_USER: "SET_CURRENT_USER",

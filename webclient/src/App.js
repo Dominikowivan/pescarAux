@@ -17,6 +17,9 @@ import checkAuthToken from "./utils/checkAuthToken";
 import ActivateUser from "./components/auth/ActivateUser";
 import NotificationPage from "./components/notification/NotificationPage";
 import Setting from './components/setting/Setting';
+import EditProfile from './components/setting/EditProfile';
+import TableList from "./components/setting/TableList";
+
 
 checkAuthToken(store);
 
@@ -66,6 +69,11 @@ class App extends Component {
                     exact
                     path='/setting'
                     component={(props) => <Setting {...props} />}
+                  />
+        <PrivateRoute
+                    exact
+                    path='/setting/editProfile/:id'
+                    component={(props) => <EditProfile {...props} />}
                   />
                 </Switch>
               </SideDrawer>

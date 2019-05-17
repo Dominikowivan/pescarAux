@@ -22,7 +22,13 @@ import { listProfileData } from '../../actions/profileActions'
 import { connect } from 'react-redux'
 import compose from 'recompose/compose'
 import { confirmDeletion } from '../../actions/deleteAction'
-import RemoveConfirm from './RemoveConfirm'
+import RemoveConfirm from './RemoveConfirm';
+import { showData } from '../../actions/showData';
+import axios from 'axios';
+import link from '../../utils/apilink.json';
+import { Link } from 'react-router-dom';
+
+import { deleteFromList } from '../../actions/deleteAction'
 
 
 let counter = 0;
@@ -71,11 +77,11 @@ function getSorting(order, orderBy) {
 }
 
 const rows = [
-  { id: 'name', numeric: false, disablePadding: true, label: 'Nombre Alumno' },
-  { id: 'lastname', numeric: false, disablePadding: false, label: 'Apellido Alumno' },
-  { id: 'email', numeric: false, disablePadding: false, label: 'Correo' },
+  { id: 'name', numeric: false, disablePadding: true, label: 'Telefono Alumno' },
+  { id: 'lastname', numeric: false, disablePadding: false, label: 'Grado Academico' },
+  { id: 'email', numeric: false, disablePadding: false, label: 'ID Sistema' },
   { id: 'dni', numeric: true, disablePadding: false, label: 'DNI' },
-  { id: 'sede', numeric: false, disablePadding: false, label: 'Sede' },
+  { id: 'sede', numeric: false, disablePadding: false, label: 'Eliminar' },
 ];
 
 class ListHeader extends React.Component {
@@ -92,11 +98,7 @@ class ListHeader extends React.Component {
       <TableHead>
         <TableRow>
           <TableCell padding="checkbox">
-            <Checkbox
-              indeterminate={numSelected > 0 && numSelected < rowCount}
-              checked={numSelected === rowCount}
-              onChange={onSelectAllClick}
-            />
+           
           </TableCell>
           {rows.map(
             row => (
@@ -189,7 +191,7 @@ let UpdateListConfirmToolbar = props => {
         {numSelected > 0 ? (
           <Tooltip title="Delete">
             <IconButton aria-label="Delete">
-              <DeleteIcon/>
+          
             </IconButton>
           </Tooltip>
         ) : (
@@ -290,6 +292,22 @@ class UpdateListConfirm extends React.Component {
     handleClickdelete = () => {
     this.props.confirmDeletion()
   };
+  handleClickEdit= (event,id) => {
+    this.props.showData(id)
+    //console.log(this.props.showData(id))
+  };
+
+  handleClickDelete =(e,id)=>{
+   
+    e.preventDefault();
+      axios.delete(link.link + `/alumni/${id}`)
+        .then(res => {
+          console.log("deletion:",res);
+        })
+  
+        this.props.deleteFromList(id)
+    };
+  
 
   isSelected = id => this.state.selected.indexOf(id) !== -1;
 
@@ -327,7 +345,7 @@ class UpdateListConfirm extends React.Component {
                   return (
                     <TableRow
                       hover
-                      onClick={event => this.handleClick(event, n.id)}
+                     // onClick={event => this.handleClick(event, n.id)}
                       role="checkbox"
                       aria-checked={isSelected}
                       tabIndex={-1}
@@ -335,13 +353,17 @@ class UpdateListConfirm extends React.Component {
                       selected={isSelected}
                     >
                       <TableCell padding="checkbox">
-                        <Checkbox checked={isSelected} />
+                       
                       </TableCell>
                     
                       <TableCell align="right">{n.telephone}</TableCell>
                       <TableCell align="right">{n.maximumEducation}</TableCell>
                       <TableCell align="right">{n.id}</TableCell>
                       <TableCell align="right">{n.pescarCenter}</TableCell>
+                      <button onClick={(e) =>  this.handleClickDelete(e,n.id)}>Borrar Perfil</button>
+                      <div className="col-md-4 d-flex justify-content-end acciones">
+                      <Link to={`setting/editProfile/${n.id}`} onClick={(e)=> this.handleClickEdit(e,n.id)} className="btn btn-primary mr-2">Editar</Link>
+                      </div> 
                     </TableRow>
                   );
                 })}
@@ -368,7 +390,7 @@ class UpdateListConfirm extends React.Component {
           onChangePage={this.handleChangePage}
           onChangeRowsPerPage={this.handleChangeRowsPerPage}
         />
-         <RemoveConfirm/>
+        
       </Paper>) : null }
       </div>
     );
@@ -382,11 +404,15 @@ ListHeader.propTypes = {
 
 const mapDispatchToProps = {  
   confirmDeletion,
-  listProfileData
+  listProfileData,
+  deleteFromList,
+  showData
+  
 }
 const mapStateToProps = (state) => ({
   auth: state.auth,
-  profileData: state.profileData
+  profileData: state.profileData,
+  updateReducer: state.updateReducer
 })
 
 export default compose(connect(mapStateToProps, mapDispatchToProps),withStyles(styles))(UpdateListConfirm)

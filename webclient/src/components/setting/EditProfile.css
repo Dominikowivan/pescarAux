@@ -1,0 +1,14 @@
+.container-profile {
+    text-align: center;
+    position: absolute;
+    left: 73px;
+    top: 73px;
+    width: -moz-calc(100% - 73px);
+    width: -webkit-calc(100% - 73px);
+    width: -o-calc(100% - 73px);
+    width: calc(100% - 73px);
+    height: -moz-calc(100% - 73px);
+    height: -webkit-calc(100% - 73px);
+    height: -o-calc(100% - 73px);
+    height: calc(100% - 73px);
+  }

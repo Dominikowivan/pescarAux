@@ -5,7 +5,7 @@ import { deleteFromList } from '../../actions/deleteAction'
 import { connect } from 'react-redux'
 
 
-export class RemoveConfirm extends React.Component {
+export class UpdateSubmit extends React.Component {
   state = {
     id: '',
   }
@@ -16,9 +16,9 @@ export class RemoveConfirm extends React.Component {
 
   handleSubmit = event => {
     event.preventDefault();
-    axios.delete(link.link + `/alumni/${this.state.id}`)
+    axios.put(link.link + `/alumni/${this.state.id}`)
       .then(res => {
-        console.log("deletion:",res);
+        console.log("push:",res);
       })
 
       this.props.deleteFromList(this.state.id);
@@ -29,15 +29,13 @@ export class RemoveConfirm extends React.Component {
      
         <form onSubmit={this.handleSubmit}>
           <label style={{ flex: '1' }}>
-            DNI del usuario a Eliminar :
-            <input type="text" name="id" onChange={this.handleChange} />
-            <button  type="submit">Eliminar</button>
+            <button  type="submit">Guardar Cambios y/o Actualizaciones en el sistema</button>
           </label>
           
         </form>
 
     )
-  }
+  } 
 
 
 }
@@ -49,4 +47,4 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = {
  deleteFromList
 }
-export default connect(mapStateToProps, mapDispatchToProps)(RemoveConfirm)
+export default connect(mapStateToProps, mapDispatchToProps)(UpdateSubmit)

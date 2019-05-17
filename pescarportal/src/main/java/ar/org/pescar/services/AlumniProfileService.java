@@ -39,17 +39,19 @@ public class AlumniProfileService {
         ExampleMatcher matcher = ExampleMatcher.matching()
                 .withIgnoreCase()//.withMatcher("counselor",contains().ignoreCase());
                 .withStringMatcher(ExampleMatcher.StringMatcher.CONTAINING)
-                .withIgnorePaths("currentJob","jobHistory","currentStudy","studyHistory","user");
+                .withIgnorePaths("currentJob","jobHistory","currentStudy	","studyHistory","user");
         Example<AlumniProfile> example = Example.of(profileToFilterBy,matcher);
         return alumniProfileDAO.findAll(example);
     }
 
     public AlumniProfile getByUserId(Long id) {
-        return alumniProfileDAO.findByUserId(id);
+        return alumniProfileDAO.findById((int)id.longValue()).get();
     }
 
     public void delete(Integer id) {
         AlumniProfile alumniProfile = alumniProfileDAO.getOne(id);
         alumniProfileDAO.delete(alumniProfile);
     }
+
+	
 }

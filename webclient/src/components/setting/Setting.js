@@ -62,7 +62,7 @@ class AlertDialog extends React.Component {
 
   render() {
     const { userType } = this.props;
-    console.log('Hola Manu',userType);
+    console.log('settings page',userType);
     return (
      <div style={styles.root} >  
        
@@ -85,31 +85,12 @@ class AlertDialog extends React.Component {
                      </div>
                      </CardActions>
 
-            <CardActions>
-            <div style={{ flex: '1' }}>
-                 {!this.props.updateReducer.updateTable ? <Button color='primary' type='submit' variant="contained" onClick={this.handleClickU}>
-                  Actualizar Perfil
-                </Button> : <ActualizarDatosForm/>}     
-              </div>
-            </CardActions>
+         
             
 
-              <CardActions>
-            <div style={{ flex: '1' }}>
-                 {!this.props.updateConfirmReducer.updateConfirm ? <Button color='primary' type='submit' variant="contained" onClick={this.handleClickUC}>
-                  Confimar Cambios o Salir de Configuracion
-                </Button> : <UpdateConfirm/>}        
-              </div>
-              </CardActions>
 
 
-              <CardActions>
-              <div style={{ flex: '1' }}>
-                {!this.props.deleteReducer.deletionPopUp ? <Button color='primary' type='submit' variant="contained" onClick={this.handleClick}>
-                  Eliminar Perfil
-                </Button> : <THISISATEST/>}   
-                 </div>
-            </CardActions>
+         
 
               
       </div>

@@ -20,8 +20,9 @@ export default combineReducers({
   recoverPasswordReducer: recoverPasswordReducer,
   changePasswordReducer: changePasswordReducer,
   notificationReducer: notificationReducer,
-   deleteReducer: deleteReducer,
-    updateReducer: updateReducer,
-    updateConfirmReducer: updateConfirmReducer,
-    updateListConfirmReducer: updateListConfirmReducer
+  deleteReducer: deleteReducer,
+  updateReducer: updateReducer,
+  updateConfirmReducer: updateConfirmReducer,
+  updateListConfirmReducer: updateListConfirmReducer
+    
 });

@@ -23,7 +23,7 @@ export default (state = initialState, action) => {
       profileDataList: action.payload.data
     }
     case 'USER_DATA_LIST_DELETE_OK':
-    console.log(state," ////dgfg",action.payload)
+    //console.log(state," ////dgfg",action.payload)
     
 
     let a = state.profileDataList.filter(student => student.id !== Number(action.payload))

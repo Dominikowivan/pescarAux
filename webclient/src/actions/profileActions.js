@@ -49,6 +49,7 @@ export const deleteProfile = (profileData, history) => (dispatch) => {
     )
 }
 
+
 export const profileData = () => (dispatch) => {
 
   axios
@@ -64,3 +65,4 @@ export const profileData = () => (dispatch) => {
       })
     )
 }
+
